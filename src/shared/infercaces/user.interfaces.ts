@@ -2,7 +2,8 @@ export interface User {
     id: number;
     firstName: string;
     lastName: string;
-    logoUrl?: string;
+    position: string;
+    description: string;
     createdAt: Date;
     updatedAt: Date;
 }
