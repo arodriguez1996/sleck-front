@@ -1,0 +1,19 @@
+.chat {
+    background-color: darkgrey;
+    width: 90%;
+    margin: 5% auto;
+    min-height: 500px;
+    border-radius: 16px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.message-container {
+    max-height: 400px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+}

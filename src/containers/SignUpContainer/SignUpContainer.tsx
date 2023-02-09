@@ -3,6 +3,8 @@ import {Formik} from "formik"
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../store/interfaces/store.interfaces";
 import {createUser} from "../../store/thunks/app.thunks";
+import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 
 export interface SignUpFormValues {
     firstName: string;
@@ -13,7 +15,15 @@ export interface SignUpFormValues {
 
 export const SignUpContainer = () => {
     const dispatch = useDispatch<AppDispatch>()
-    const {isLoadingCreateUser} = useSelector((state: RootState) => state.app)
+    const {currentUser, isLoadingCreateUser} = useSelector((state: RootState) => state.app)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (currentUser) {
+            navigate(`chat/${currentUser.id}`)
+        }
+        // eslint-disable-next-line
+    }, [currentUser])
 
     const handleSubmit = (values: SignUpFormValues) => {
         dispatch(createUser(values))

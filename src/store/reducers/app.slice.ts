@@ -1,9 +1,11 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {createUser} from "../thunks/app.thunks";
 import {AppState} from "../interfaces/app.interfaces";
+import {Message} from "../../shared/infercaces/messages.interfaces";
 
 export const initialState: AppState = {
-    isLoadingCreateUser: false
+    isLoadingCreateUser: false,
+    messages: []
 }
 
 export const appSlice = createSlice({
@@ -18,7 +20,15 @@ export const appSlice = createSlice({
     }),
     initialState,
     name: "app",
-    reducers: {}
+    reducers: {
+        updateMessages: (state: AppState, {payload}: PayloadAction<Message[]>) => {
+            state.messages = payload;
+        }
+    },
 })
+
+export const {
+    updateMessages
+} = appSlice.actions
 
 export default appSlice.reducer
