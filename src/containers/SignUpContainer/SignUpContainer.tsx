@@ -1,6 +1,8 @@
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {Formik} from "formik"
-import './styless.css'
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "../../store/interfaces/store.interfaces";
+import {createUser} from "../../store/thunks/app.thunks";
 
 export interface SignUpFormValues {
     firstName: string;
@@ -10,9 +12,11 @@ export interface SignUpFormValues {
 }
 
 export const SignUpContainer = () => {
+    const dispatch = useDispatch<AppDispatch>()
+    const {isLoadingCreateUser} = useSelector((state: RootState) => state.app)
 
     const handleSubmit = (values: SignUpFormValues) => {
-        alert(JSON.stringify(values))
+        dispatch(createUser(values))
     }
 
     return (<Container fluid>
@@ -103,7 +107,7 @@ export const SignUpContainer = () => {
                                     {errors.description && touched.description && errors.description}
                                 </Form.Text>
                             </Form.Group>
-                            <Button variant="primary" type="submit" disabled={isSubmitting}>
+                            <Button variant="primary" type="submit" disabled={isSubmitting || isLoadingCreateUser}>
                                 Submit
                             </Button>
                         </form>
